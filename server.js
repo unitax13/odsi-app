@@ -33,4 +33,4 @@ app.get('/', async (req,res) => {
 
 app.use('/memos',memoRouter)
 
-app.listen(5000)
+app.listen(process.env.PORT || 5000)
