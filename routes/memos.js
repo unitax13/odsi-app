@@ -1,17 +1,18 @@
 const express = require('express')
 const Memo = require('../models/memo')
 const router = express.Router()
+const {ensureAuthenticated} = require('../config/auth')
 
-router.get('/new', (req,res) => {
+router.get('/new', ensureAuthenticated, (req,res) => {
     res.render('memos/new' , {memo: new Memo()})
 })
 
-router.get('/edit/:id', async (req,res) => {
+router.get('/edit/:id', ensureAuthenticated, async (req,res) => {
     const memo = await Memo.findById(req.params.id)
     res.render('memos/edit' , {memo: memo})
 })
 
-router.get('/:id', async (req,res) => {
+router.get('/:id', ensureAuthenticated, async (req,res) => {
     const memo = await Memo.findById(req.params.id) 
     if (memo==null) { 
         res.redirect('/')
@@ -19,19 +20,19 @@ router.get('/:id', async (req,res) => {
     res.render('memos/show', {memo: memo })
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/', ensureAuthenticated, async (req, res, next) => {
     req.memo = new Memo()
     next()
 }, saveMemoAndRedirect('new'))
 
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', ensureAuthenticated, async (req, res, next) => {
     req.memo = await Memo.findById(req.params.id)
     next()
 }, saveMemoAndRedirect('edit'))
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', ensureAuthenticated, async (req, res) => {
     await Memo.findByIdAndDelete(req.params.id)
-    res.redirect('/')
+    res.redirect('/dashboard')
 })
 
 function saveMemoAndRedirect(path) {

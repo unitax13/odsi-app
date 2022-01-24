@@ -13,7 +13,7 @@
 <div class="container">
    <h1 class="mb-1"><%= memo.title %></h1>
    <div class="text-muted mb-2"><%= memo.createdAt.toLocaleString() %></div>
-    <a href="/" class="btn btn-secondary">All memos</a>
+    <a href="/dashboard" class="btn btn-secondary">All memos</a>
     <a href="/memos/edit/<%= memo.id %>" class="btn btn-info">Edit</a>
 
     <div><%- memo.sanitizedHTML %></div>
