@@ -1,4 +1,0 @@
-articles -> memos
-Blog -> notatki
-articleRouter => memoRouter
-no slug whatsoever
