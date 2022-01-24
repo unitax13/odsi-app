@@ -11,6 +11,6 @@ Baza danych na MongoAtlas jest wspólna dla wszystkich użytkowników, dlatego z
 
 
 
- ### Wykomentowałem wartości odpowiedzialne za rejestrację w users.js, welcone.ejs login.ejs
+ ### Wykomentowałem wartości odpowiedzialne za rejestrację w users.js, welcome.ejs login.ejs
 
  Całość również dostępna na https://odsi-app.herokuapp.com/
