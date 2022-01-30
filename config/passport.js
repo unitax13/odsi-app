@@ -11,29 +11,44 @@ module.exports = function(passport) {
         new LocalStrategy({
             usernameField: 'email' }, (email, password, done) => {
                 // match User
+                // checking data with nagative attitude
+                const re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+                
+                if (email.length > 64) {
+                    console.log('Very long email out there')
+                    return done (null, false, {message: 'Incorrect credentials'})
 
-                // we shhould check that once again here
+                } else if (password.length < 4 || password.length > 32) {
+                    console.log('Password is too long or too short')
+                    return done (null, false, {message: 'Incorrect credentials'})
+                }
+                else if (!re.test(email)) {
+                    console.log("Email doesn't look like email")
+                    return done (null, false, {message: 'Incorrect credentials'})
 
-                User.findOne({ email: email })
-                .then(user => {
-                    if (!user) {
-                        return done(null, false, {message : 'Incorrect credentials'});
-                    }
+                } else { //if nothing weird out there
 
-                    //Match password
-                    bcrypt.compare(password, user.password, (err, isMatch) => {
-                        if (err) throw err;
-
-                        if(isMatch) {
-                            return done(null, user);
-                        } else {
-                        return done (null, false, {message: 'Incorrect credentials'})
+                    User.findOne({ email: email })
+                    .then(user => {
+                        if (!user) {
+                            return done(null, false, {message : 'Incorrect credentials'});
                         }
 
-                    });
-                })
-                .catch (err => console.log(err))
+                        //Match password
+                        bcrypt.compare(password, user.password, (err, isMatch) => {
+                            if (err) throw err;
 
+                            if(isMatch) {
+                                return done(null, user);
+                            } else {
+                            return done (null, false, {message: 'Incorrect credentials'})
+                            }
+
+                        });
+                    })
+                    .catch (err => console.log(err))
+
+                }
             }
         )
     );

@@ -1,3 +1,79 @@
+
+<style type="text/css">
+
+  #passwordInput{
+      width: 30%;
+      display: flex;
+      position: relative;
+  }
+   #passwordInput input[type="password"], #passwordInput input[type="text"]{
+      width: 100%;
+      padding: 10px;
+      border: 1px solid lightgrey;
+      font-size: 15px;
+      
+  }
+  
+  #passwordInput #showHide{
+    font-size: 12px;
+      font-weight: 600;
+     position: absolute;
+     color:red;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      user-select: none;
+  }
+  #passwordStrength{
+      width: 30%;
+      height: 5px;
+      margin: 5px 0;
+      display: none;
+  }
+  #passwordStrength span{
+    position: relative;
+    height: 100%;
+    width: 100%;
+    background: lightgrey;
+    border-radius: 5px;
+  }
+   #passwordStrength span:nth-child(2){
+    margin: 0 3px;
+  }
+  #passwordStrength span.active:before{
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 5px;
+  }
+  #passwordStrength span#poor:before{
+    background-color: #ff4757;
+  }
+  #passwordStrength span#weak:before{
+    background-color: orange;
+  }
+  #passwordStrength span#strong:before{
+    background-color: #23ad5c;
+  }
+  #passwordInfo{
+    font-size: 15px;
+  }
+  #passwordInfo #poor{
+    color: red;
+  }
+  #passwordInfo #weak{
+    color: orange;
+  }
+  #passwordInfo #strong{
+    color: green;
+  }
+  </style>
+
+
 <div class="row mt-5">
     <div class="col-md-6 m-auto">
       <div class="card card-body">
@@ -24,6 +100,15 @@
               placeholder="Enter Password"
             />
           </div>
+        
+        <div id="passwordStrength">
+             <span id="poor"></span>
+             <span id="weak"></span>
+             <span id="strong"></span>
+           </div>
+        <div id="passwordInfo">dasdas</div>
+
+
           <button type="submit" class="btn btn-primary btn-block">Login</button>
         </form>
         <p class="lead mt-4">
@@ -32,3 +117,5 @@
       </div>
     </div>
   </div>
+
+  

@@ -45,6 +45,11 @@ router.post('/register', (req,res) => {
         errors.push({msg: "Password should have up to 32 characters"})
     }
 
+    const re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    if (!re.test(email)) {
+        errors.push({msg: "Please enter valid e-mail address"})
+    }
+
 
     if (errors.length > 0) {
         res.render('register', {
@@ -98,24 +103,10 @@ router.post('/register', (req,res) => {
 
 //Login handle
 router.post('/login', async (req,res, next) => {
-
-    console.log(req.body.email)
-    console.log(req.body.password)
-
-    if (req.body.email.length > 64) {
-        console.log('Very long email out there')
-    } else if (req.body.password.length > 32) {
-        console.log('Password is too long')
-    } else {
         setTimeout((() => {
             loginAuthenticate(req,res,next);
         }),2000)
-    }
-    setTimeout((() => {
-        return null;
-    }), 2000);
-    
-});
+    });
 
 function loginAuthenticate (req,res, next) {
     passport.authenticate('local', {
